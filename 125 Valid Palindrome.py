@@ -1,10 +1,9 @@
-from curses.ascii import isalnum, isupper
-
-from numpy.core.defchararray import lower
+from numpy.core.defchararray import isalnum, isupper
 
 
 def isPalindrome(s: str) -> bool:
     """
+    Version 1 of the code: ascii code
     s_ = list(s)
     l = len(s_)
 
@@ -30,7 +29,8 @@ def isPalindrome(s: str) -> bool:
     >>> s = "A man, a plan, a canal: Panama"
     >>> isPalindrome(s)
     True
-    """
+
+    Version 2 of the code: stack
     length1 = len(s)
     store1 = list(s)
     store2 = []
@@ -38,13 +38,42 @@ def isPalindrome(s: str) -> bool:
         char = store1[i]
         if isalnum(char):
             if isupper(char):
-                char = lower(char)
+                char = char.lower()
             store2.append(char)
     length2 = len(store2)
+    store3 = []
     for i in range(length2 // 2):
-        store2.append(s[i])
+        store3.append(store2[i])
     for j in range((length2 + 1) // 2, length2):
-        if s[j] != store2.pop():
+        if store2[j] != store3.pop():
             return False
     return True
 
+
+
+
+    # Version 4 of the code: try to use logN complexity
+    i = 0
+    l = len(s)
+    while i < l:
+
+    don't know how
+    """
+    # Version 3 of the code: mutate on list,compare head to tail
+    length1 = len(s)
+    store1 = []
+    i = 0
+    while i < length1:
+        char = s[i]
+        if isalnum(char):
+            if isupper(char):
+                char = char.lower()
+            store1.append(char)
+        i += 1
+
+    length2 = len(store1)
+
+    for i in range(length2 // 2):
+        if store1[i] != store1[length2 - i - 1]:
+            return False
+    return True
