@@ -1,4 +1,6 @@
 def maxProfit(prices) -> int:
+    """
+    Code by dad:
 
     maxprofit = -1
     days = len(prices)
@@ -31,9 +33,9 @@ def maxProfit(prices) -> int:
         return 0
     return maxprofit
 
-    """
+
     Code not working(also don't know why):
-    
+
     total_days = len(prices)
     descending = 1
     for i in range(total_days - 2):
@@ -74,5 +76,44 @@ def maxProfit(prices) -> int:
                 else:  # 暂时差价不成立
                     max_index -= 1
     return maxprofit
-    """
 
+    >>> prices = [2,7,1,4]
+    >>> maxProfit(prices)
+    5
+    >>> prices = [3,2,6,5,0,3]
+    >>> maxProfit(prices)
+    4
+    >>> prices = [1,4,2]
+    >>> maxProfit(prices)
+    3
+    >>> prices = [7,1,5,3,6,4]
+    >>> maxProfit(prices)
+    5
+
+    """
+    # This code is not working:
+    l = len(prices)
+    i = 0
+    j = l - 1
+    buy_price = prices[i]
+    sell_price = prices[j]
+    cur_smallest_pos = i
+    cur_biggest_pos = j
+
+    while cur_smallest_pos < cur_biggest_pos and i < cur_biggest_pos and j > cur_smallest_pos:
+
+        if i + 1 < cur_biggest_pos:
+            next_i = i + 1
+            if prices[next_i] < buy_price:
+                cur_smallest_pos = next_i
+                buy_price = prices[next_i]
+            i += 1
+
+        if j - 1 > cur_smallest_pos:
+            next_j = j - 1
+            if prices[next_j] > sell_price:
+                cur_biggest_pos = next_j
+                sell_price = prices[next_j]
+            j -= 1
+
+    return max(0, sell_price - buy_price)
