@@ -77,20 +77,6 @@ def maxProfit(prices) -> int:
                     max_index -= 1
     return maxprofit
 
-    >>> prices = [2,7,1,4]
-    >>> maxProfit(prices)
-    5
-    >>> prices = [3,2,6,5,0,3]
-    >>> maxProfit(prices)
-    4
-    >>> prices = [1,4,2]
-    >>> maxProfit(prices)
-    3
-    >>> prices = [7,1,5,3,6,4]
-    >>> maxProfit(prices)
-    5
-
-    """
     # This code is not working:
     l = len(prices)
     i = 0
@@ -117,3 +103,32 @@ def maxProfit(prices) -> int:
             j -= 1
 
     return max(0, sell_price - buy_price)
+
+    >>> prices = [2,7,1,4]
+    >>> maxProfit(prices)
+    5
+    >>> prices = [3,2,6,5,0,3]
+    >>> maxProfit(prices)
+    4
+    >>> prices = [1,4,2]
+    >>> maxProfit(prices)
+    3
+    >>> prices = [7,1,5,3,6,4]
+    >>> maxProfit(prices)
+    5
+
+    """
+    l = len(prices)
+    left = 0
+    right = 1
+    max_profit = 0
+    while right < l:
+        buy = prices[left]
+        sell = prices[right]
+        cur_profit = sell - buy
+        if cur_profit > 0:
+            max_profit = max(cur_profit, max_profit)
+        else:
+            left = right
+        right += 1
+    return max_profit
